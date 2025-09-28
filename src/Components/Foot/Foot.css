@@ -1,26 +1,30 @@
-.foot{
-	bottom: 0;
-	position: fixed;
-	width: 98%;
-	display: flex;
-	margin: 10px 12px;
-	justify-content: space-between;
-	align-items: center;
-	height: 8%;
-	background-color: var(--primary-bg);
-	color: var(--primary-text);
+.foot {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 8%; /* same as nav for balance */
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  padding: 0 2%;
 }
 
-
-.ofoot{
-	display: flex;
-	flex-direction: column-reverse;
-	align-items: center;
-	justify-content: center;
+.ofoot {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* evenly distribute */
+  text-align: center;
 }
 
-.ofoot p, .ofoot .footicon{
-	font-size: 18px;
-	text-decoration: none;
-	color: var(--primary-text);
+.ofoot p,
+.ofoot .footicon {
+  font-size: 5vw; /* scale with width */
+  text-decoration: none;
+  color: var(--primary-text);
 }
