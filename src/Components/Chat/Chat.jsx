@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import axios from "axios";
 import { ShopContext } from "../../Context/ShopContext";
-import "./Chat.css"
+import "./Chat.css";
 
- const Chat = () => {
+const Chat = () => {
   const { chatId } = useParams();   
   const [msg, setMsg] = useState([]);
   const { BASE_URL, token, user } = useContext(ShopContext); 
@@ -82,31 +82,38 @@ import "./Chat.css"
       console.error(err);
     }
   };
-return (
-  <div className="chat-container">
-    <div className="msg">
-      {msg.map((message, index) => {
-        const isOwnMessage = message.sender?._id === user?._id;
-        return (
-          <div key={index} className={`message ${isOwnMessage ? "own" : "other"}`}>
-            <strong>{!isOwnMessage && `${message.sender?.name}:`}</strong>
-            <span>{message.content || message.text}</span>
-          </div>
-        );
-      })}
-    </div>
-    <form className="form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button type="submit">Send</button>
-    </form>
-  </div>
-);
 
+  return (
+    <div className="chat-container">
+      <div className="msg">
+        {msg.map((message, index) => {
+          const isOwnMessage = message.sender?._id === user?._id;
+          return (
+            <div
+              key={index}
+              className={`message ${isOwnMessage ? "own" : "other"}`}
+            >
+              {!isOwnMessage && (
+                <span className="sender-name">{message.sender?.name}</span>
+              )}
+              <span className="message-text">
+                {message.content || message.text}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+      <form className="form" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+        />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  );
 };
 
-
-export default Chat 
+export default Chat;

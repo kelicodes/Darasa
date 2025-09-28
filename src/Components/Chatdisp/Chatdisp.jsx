@@ -25,37 +25,35 @@ const getChatWithUser = (userId) => {
   return (
     <div className="chatdisp">
       <h4>Users</h4>
-      {safeUsers
-        .filter((u) => u._id !== currentUserId)
-        .map((user) => {
-          const existingChat = getChatWithUser(user._id);
-          const chatName = existingChat
-            ? existingChat.users.find((u) => u._id !== currentUserId)?.name
-            : user.name;
+    {safeUsers
+  .filter((u) => String(u._id) !== String(currentUser._id)) // exclude self
+  .map((user) => {
+    const existingChat = getChatWithUser(user._id);
+    const chatName = existingChat
+      ? existingChat.users.find((u) => String(u._id) !== String(currentUser._id))?.name
+      : user.name;
 
-          return (
-            <div
-              key={user._id}
-              className="user"
-              onClick={() => {
-            
-                accessChats(user._id)
-              }}
-            >
-              <img
-                src={user.profilepic}
-                alt={user.name}
-                className="profile-pic"
-              />
-              <p>{chatName}</p>
-              {existingChat?.latestmsg && (
-                <small>
-                  {existingChat.latestmsg.sender.name}: {existingChat.latestmsg.content}
-                </small>
-              )}
-            </div>
-          );
-        })}
+    return (
+      <div
+        key={user._id}
+        className="user"
+        onClick={() => accessChats(user._id)}
+      >
+        <img
+          src={user.profilepic}
+          alt={user.name}
+          className="profile-pic"
+        />
+         <div className="user-info">
+    <p className="username">{chatName}</p>
+    {existingChat?.latestmsg && (
+      <small className="lastmsg">{existingChat.latestmsg.content}</small>
+    )}
+  </div>
+      </div>
+    );
+  })}
+
     </div>
   );
 };

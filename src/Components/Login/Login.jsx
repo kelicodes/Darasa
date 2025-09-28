@@ -52,18 +52,22 @@ export const Login=(props)=>{
 					email,
 					password
 				},{ withCredentials: true })
-				console.log(response.data)
+				
 				if(response.data.success){
 					setToken(response.data.token)
 					localStorage.setItem("token",response.data.token)
+					localStorage.setItem('user', JSON.stringify(response.data.user));
 					setUser(response.data.user)
 					setName('')
 					setEmail('')
-
-					navigate('/')
+					console.log(JSON.parse(localStorage.getItem("user")));
+			console.log("user")
+					  setTimeout(() => navigate('/'), 10000);
 
 				}
 			}
+
+
 		}catch(e){
 			console.log(e)
 		}

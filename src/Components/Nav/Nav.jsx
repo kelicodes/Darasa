@@ -8,10 +8,13 @@ import "./Nav.css"
 const Nav=(props)=>{
 	const {user,Logout}=useContext(ShopContext)
 
+	const myuser=JSON.parse(localStorage.getItem('user'));
+	
+
 
 	return (<>
 		<div className="nav">
-			<img src={user.profilepic}  />
+			<img src={myuser.profilepic}  />
 
 			<p className="DARASA"> DARASA</p>
 
