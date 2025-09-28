@@ -1,43 +1,61 @@
 import { useEffect, useRef, useState } from "react";
 
-const JitsiMeeting = ({ roomId }) => {
+const JitsiMeeting = ({ roomName, userName }) => {
   const containerRef = useRef(null);
   const [api, setApi] = useState(null);
 
   useEffect(() => {
     const domain = "meet.jit.si";
-    const options = {
-      roomName: roomId,
-      width: "100%",
-      height: 600,
-      parentNode: containerRef.current,
-    };
-
     let jitsiApi;
 
-    const script = document.createElement("script");
-    script.src = "https://meet.jit.si/external_api.js";
-    script.async = true;
-    script.onload = () => {
-      jitsiApi = new window.JitsiMeetExternalAPI(domain, options);
-      setApi(jitsiApi);
+    const loadJitsi = () => {
+      if (window.JitsiMeetExternalAPI) {
+        const options = {
+          roomName: roomName,
+          parentNode: containerRef.current,
+          userInfo: {
+            displayName: userName,
+          },
+          configOverwrite: {
+            prejoinPageEnabled: false, // skip pre-join
+          },
+          interfaceConfigOverwrite: {
+            SHOW_JITSI_WATERMARK: false,
+            TOOLBAR_BUTTONS: ["microphone", "camera", "hangup", "chat"],
+          },
+          width: "100%",
+          height: 600,
+        };
+
+        jitsiApi = new window.JitsiMeetExternalAPI(domain, options);
+        setApi(jitsiApi);
+      }
     };
-    document.body.appendChild(script);
+
+    // Load script dynamically if not already there
+    if (!window.JitsiMeetExternalAPI) {
+      const script = document.createElement("script");
+      script.src = "https://meet.jit.si/external_api.js";
+      script.async = true;
+      script.onload = loadJitsi;
+      document.body.appendChild(script);
+    } else {
+      loadJitsi();
+    }
 
     return () => {
       if (jitsiApi) {
-        jitsiApi.dispose(); // ✅ Cleanup Jitsi instance
+        jitsiApi.dispose();
       }
     };
-  }, [roomId]);
+  }, [roomName, userName]);
 
-  // Handle leaving meeting
   const handleLeave = () => {
     if (api) {
       api.dispose();
-      setApi(null); // Clear instance
+      setApi(null);
       if (containerRef.current) {
-        containerRef.current.innerHTML = ""; // Clear iframe
+        containerRef.current.innerHTML = ""; // clear iframe
       }
     }
   };
@@ -45,7 +63,11 @@ const JitsiMeeting = ({ roomId }) => {
   return (
     <div className="flex flex-col items-center gap-4">
       {/* Meeting container */}
-      <div ref={containerRef} className="w-full max-w-4xl rounded-lg overflow-hidden shadow-lg" />
+      <div
+        ref={containerRef}
+        className="w-full max-w-4xl rounded-lg overflow-hidden shadow-lg"
+        style={{ height: "80vh" }}
+      />
 
       {/* Leave button */}
       {api && (
