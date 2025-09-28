@@ -20,58 +20,54 @@ export const Login=(props)=>{
 
 
 
-	const handlesubmit=async(e)=>{
-		try{
-			e.preventDefault()
-			const formdata=new FormData()
-			console.log(logstate)
-			
+	const handlesubmit = async (e) => {
+  try {
+    e.preventDefault();
+    const formdata = new FormData();
 
-			if(logstate === "signup"){
-				formdata.append("name",name)
-			    formdata.append('email',email)
-			    formdata.append('password',password)
-			    if(profilepic) formdata.append('profileimage',profilepic)
-			   console.log(Object.fromEntries(formdata.entries()));
+    if (logstate === "signup") {
+      formdata.append("name", name);
+      formdata.append("email", email);
+      formdata.append("password", password);
+      if (profilepic) formdata.append("profileimage", profilepic);
 
-				const response = await axios.post(BASE_URL+ "/user/signup",formdata,{ withCredentials: true })
-				console.log(response.data)
-				if(response.data.success){
-					setToken(response.data.token)
-					localStorage.setItem("token",response.data.token)
-					setUser(response.data.user)
-					setName('')
-					setEmail('')
-					setPassword('')
-					navigate('/')
-					}
-			}else if(logstate === "login"){
-				formdata.append("password",password)
-			    formdata.append('email',email)
-				const response= await axios.post(BASE_URL + "/user/login",{
-					email,
-					password
-				},{ withCredentials: true })
-				
-				if(response.data.success){
-					setToken(response.data.token)
-					localStorage.setItem("token",response.data.token)
-					localStorage.setItem('user', JSON.stringify(response.data.user));
-					setUser(response.data.user)
-					setName('')
-					setEmail('')
-					console.log(JSON.parse(localStorage.getItem("user")));
-			console.log("user")
-					  setTimeout(() => navigate('/'), 10000);
+      const response = await axios.post(BASE_URL + "/user/signup", formdata, {
+        withCredentials: true,
+      });
 
-				}
-			}
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user)); // ✅ save user
+        setUser(response.data.user);
+        setName("");
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+    } else if (logstate === "login") {
+      const response = await axios.post(
+        BASE_URL + "/user/login",
+        { email, password },
+        { withCredentials: true }
+      );
 
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setUser(response.data.user);
+        setName("");
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-		}catch(e){
-			console.log(e)
-		}
-	}
 
 
 	return (

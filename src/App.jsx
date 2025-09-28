@@ -13,6 +13,7 @@ import "./App.css"
 
 export const App = () => {
   const { token } = useContext(ShopContext)
+  console.log(token)
 
   return (
     <>
