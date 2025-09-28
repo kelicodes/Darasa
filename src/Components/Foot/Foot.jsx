@@ -22,7 +22,7 @@ const Foot=()=>{
 	             <p>Projects</p>
 	             <LiaNetworkWiredSolid className="footicon" />
             </Link>
-			<Link to="/E-class" className="e-class ofoot">
+			<Link to="/eclass" className="e-class ofoot">
 				<p>E-class</p>
 				<IoVideocamSharp className="footicon" />
 			</Link>

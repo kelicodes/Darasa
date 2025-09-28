@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Login from "./Components/Login/Login"
 import Home from "./Pages/Home/Home"
+import Eclass from "./Pages/Class/Eclass"
 import Foot from "./Components/Foot/Foot"
 import Nav from "./Components/Nav/Nav"
 import Chat from "./Components/Chat/Chat"
@@ -21,6 +22,7 @@ export const App = () => {
           <Routes >
             <Route path="/" element={<Chatdisp/>} />
             <Route path='/chat/:chatId' element={<Chat/>}/>
+            <Route path="/eclass" element={<Eclass/>}/>
           </Routes>
         </div>
           <Foot />

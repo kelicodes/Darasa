@@ -1,0 +1,17 @@
+.eclass {
+  width: 100%;
+  height: 70vh; /* Full screen height */
+  display: flex;
+  align-items: center;  /* Vertical center */
+  justify-content: center; /* Horizontal center */
+}
+
+.eclass button {
+  padding: 12px 24px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+}
