@@ -9,12 +9,19 @@ const Nav=(props)=>{
 	const {user,Logout}=useContext(ShopContext)
 
 	const myuser=JSON.parse(localStorage.getItem('user'));
+
+
+	
 	
 
 
 	return (<>
 		<div className="nav">
-			<img src={myuser.profilepic ? myuser.profilepic : assets.upload}  />
+			<img
+  src={myuser?.profilepic || assets.upload}
+  alt="profile"
+/>
+
 
 			<p className="DARASA"> DARASA</p>
 
