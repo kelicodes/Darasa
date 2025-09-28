@@ -3,10 +3,10 @@
 	position: fixed;
 	width: 100%;
 	display: flex;
-	padding: 6px 6px;
+	padding: 0px 2px;
 	justify-content: space-between;
 	align-items: center;
-	height: 12%;
+	height: 8%;
 	background-color: var(--primary-bg);
 	color: var(--primary-text);
 }
@@ -20,7 +20,7 @@
 }
 
 .ofoot p, .ofoot .footicon{
-	font-size: 20px;
+	font-size: 12px;
 	text-decoration: none;
 	color: var(--primary-text);
 }

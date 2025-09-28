@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  height: 100px; /* fixed height in px */
+  height: 70px; /* fixed height in px */
   padding: 15px 20px;
   background-color: var(--primary-bg);
   color: var(--primary-text);
@@ -21,7 +21,7 @@
 }
 
 .nav p {
-  font-size: 24px;
+  font-size: 16px;
 }
 
 .icon {

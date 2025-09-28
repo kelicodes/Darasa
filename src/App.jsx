@@ -8,6 +8,7 @@ import Nav from "./Components/Nav/Nav"
 import Chat from "./Components/Chat/Chat"
 import Chatdisp from "./Components/Chatdisp/Chatdisp" 
 import { ShopContext } from "./Context/ShopContext"
+import CreateMeetingButton from "./Pages/Class/create"
 import "./App.css"
 
 export const App = () => {
@@ -21,8 +22,9 @@ export const App = () => {
           <div className="mainct">
           <Routes >
             <Route path="/" element={<Chatdisp/>} />
+            <Route path='/eclass' element={<CreateMeetingButton/>}/>
             <Route path='/chat/:chatId' element={<Chat/>}/>
-            <Route path="/eclass" element={<Eclass/>}/>
+            <Route path="/eclass/:roomid" element={<Eclass/>}/>
           </Routes>
         </div>
           <Foot />

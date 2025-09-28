@@ -3,29 +3,35 @@ import { v4 as uuidv4 } from "uuid";
 import "./Eclass.css";
 
 const Eclass = () => {
-  const [roomName, setRoomName] = useState("");
+  const { roomId } = useParams();
+  const containerRef = useRef(null);
 
-  const startMeeting = () => {
-    const unique = uuidv4(); // generate unique room
-    setRoomName(unique);
-  };
+  useEffect(() => {
+    const domain = "meet.jit.si"; // you can self-host later
+    const options = {
+      roomName: roomId, // room is tied to the URL
+      width: "100%",
+      height: 600,
+      parentNode: containerRef.current,
+    };
+
+    const script = document.createElement("script");
+    script.src = "https://meet.jit.si/external_api.js";
+    script.async = true;
+    script.onload = () => {
+      new window.JitsiMeetExternalAPI(domain, options);
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      containerRef.current.innerHTML = "";
+    };
+  }, [roomId]);
 
   return (
-    <div className="eclass">
-      {!roomName && (
-        <button onClick={startMeeting}>
-          START
-        </button>
-      )}
-
-      {roomName && (
-        <iframe
-          src={`https://meet.jit.si/${roomName}`}
-          allow="camera; microphone; fullscreen; display-capture"
-          style={{ width: "100%", height: "100%", border: "0" }}
-          title="Jitsi Meeting"
-        />
-      )}
+    <div>
+      <h2>Meeting: {roomId}</h2>
+      <div ref={containerRef} style={{ width: "100%", height: "600px" }} />
     </div>
   );
 };
