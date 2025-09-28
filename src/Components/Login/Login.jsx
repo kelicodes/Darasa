@@ -34,7 +34,7 @@ export const Login=(props)=>{
 			    if(profilepic) formdata.append('profileimage',profilepic)
 			   console.log(Object.fromEntries(formdata.entries()));
 
-				const response = await axios.post(BASE_URL+ "/user/signup",formdata)
+				const response = await axios.post(BASE_URL+ "/user/signup",formdata,{ withCredentials: true })
 				console.log(response.data)
 				if(response.data.success){
 					setToken(response.data.token)
@@ -51,7 +51,7 @@ export const Login=(props)=>{
 				const response= await axios.post(BASE_URL + "/user/login",{
 					email,
 					password
-				})
+				},{ withCredentials: true })
 				console.log(response.data)
 				if(response.data.success){
 					setToken(response.data.token)
