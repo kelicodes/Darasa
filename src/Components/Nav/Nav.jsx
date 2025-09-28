@@ -14,7 +14,7 @@ const Nav=(props)=>{
 
 	return (<>
 		<div className="nav">
-			<img src={myuser.profilepic}  />
+			<img src={myuser.profilepic ? myuser.profilepic : assets.upload}  />
 
 			<p className="DARASA"> DARASA</p>
 
