@@ -78,7 +78,7 @@ export const Login=(props)=>{
 				<div className="signup">
 					<label htmlFor="profilepic">
 				<input id="profilepic" onChange={(e)=>setProfilepic(e.target.files[0])} type="file" hidden/>
-				<img  src={profilepic ? URL.createObjectURL(profilepic) : assets.upload} />
+				<img className="theprofile"  src={profilepic ? URL.createObjectURL(profilepic) : assets.upload} />
 			</label>
 				 <input type="text" value={name} onChange={(e)=>setName(e.target.value)}
 				  placeholder="enter name"/>
