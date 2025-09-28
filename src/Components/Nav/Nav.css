@@ -1,0 +1,30 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100px; /* fixed height in px */
+  padding: 15px 20px;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  z-index: 1000; /* ensure Nav stays on top */
+}
+
+.nav img {
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+}
+
+.nav p {
+  font-size: 24px;
+}
+
+.icon {
+  font-size: 60px;
+  cursor: pointer;
+}

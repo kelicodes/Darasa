@@ -1,0 +1,24 @@
+.spinner{
+	height: 100vh;
+	widows: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	animation: spin linear infinite 3s;
+
+}
+
+
+.innerspinner{
+	border-bottom: 2px solid black;
+	border-top: 2px solid white;
+	width: 40px;
+	height: 40px;
+}
+
+
+@keyframes animation{
+	spin{
+		transform: rotate(360deg);
+	}
+}
