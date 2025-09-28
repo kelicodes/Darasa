@@ -8,7 +8,7 @@ export const ShopContext = createContext()
 
 
 export const ShopContextProvider = (props) => {
-  const BASE_URL = "https://backdarasa-1.onrender.com/"
+  const BASE_URL = "https://backdarasa-1.onrender.com"
 
   const [token, setToken] = useState("")
   const [user, setUser] = useState([])
