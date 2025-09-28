@@ -9,7 +9,7 @@ const CreateMeetingButton = () => {
     const roomId = "room-" + Math.random().toString(36).substring(2, 10);
 
     // Redirect user to the new meeting page
-    navigate(`/meeting/${roomId}`);
+    navigate(`/eclass/${roomId}`);
   };
 
   return (

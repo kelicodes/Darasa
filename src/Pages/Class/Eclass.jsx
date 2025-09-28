@@ -1,39 +1,63 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import "./Eclass.css";
+import { useEffect, useRef, useState } from "react";
 
-const Eclass = () => {
-  const { roomId } = useParams();
+const JitsiMeeting = ({ roomId }) => {
   const containerRef = useRef(null);
+  const [api, setApi] = useState(null);
 
   useEffect(() => {
-    const domain = "meet.jit.si"; // you can self-host later
+    const domain = "meet.jit.si";
     const options = {
-      roomName: roomId, // room is tied to the URL
+      roomName: roomId,
       width: "100%",
       height: 600,
       parentNode: containerRef.current,
     };
 
+    let jitsiApi;
+
     const script = document.createElement("script");
     script.src = "https://meet.jit.si/external_api.js";
     script.async = true;
     script.onload = () => {
-      new window.JitsiMeetExternalAPI(domain, options);
+      jitsiApi = new window.JitsiMeetExternalAPI(domain, options);
+      setApi(jitsiApi);
     };
     document.body.appendChild(script);
 
     return () => {
-      containerRef.current.innerHTML = "";
+      if (jitsiApi) {
+        jitsiApi.dispose(); // ✅ Cleanup Jitsi instance
+      }
     };
   }, [roomId]);
 
+  // Handle leaving meeting
+  const handleLeave = () => {
+    if (api) {
+      api.dispose();
+      setApi(null); // Clear instance
+      if (containerRef.current) {
+        containerRef.current.innerHTML = ""; // Clear iframe
+      }
+    }
+  };
+
   return (
-    <div>
-      <h2>Meeting: {roomId}</h2>
-      <div ref={containerRef} style={{ width: "100%", height: "600px" }} />
+    <div className="flex flex-col items-center gap-4">
+      {/* Meeting container */}
+      <div ref={containerRef} className="w-full max-w-4xl rounded-lg overflow-hidden shadow-lg" />
+
+      {/* Leave button */}
+      {api && (
+        <button
+          onClick={handleLeave}
+          className="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition"
+        >
+          Leave Meeting
+        </button>
+      )}
     </div>
   );
 };
 
-export default Eclass;
+export default JitsiMeeting;
