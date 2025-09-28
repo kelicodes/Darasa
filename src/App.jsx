@@ -8,7 +8,7 @@ import Nav from "./Components/Nav/Nav"
 import Chat from "./Components/Chat/Chat"
 import Chatdisp from "./Components/Chatdisp/Chatdisp" 
 import { ShopContext } from "./Context/ShopContext"
-import CreateMeetingButton from "./Pages/Class/create"
+import CreateMeetingButton from "./Pages/Class/Create"
 import "./App.css"
 
 export const App = () => {
