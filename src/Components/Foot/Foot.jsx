@@ -11,19 +11,19 @@ const Foot=()=>{
 	return(
 		<div className="foot">
 			<Link to="/" className="home ofoot">
-				<p>Home</p>
+
 				<IoHomeSharp className="footicon" />
 			</Link>
             <Link to="/Notes" className="Notes ofoot">
-	             <p>Notes</p>
+	          
 	             <CgNotes className="footicon" />
             </Link>
             <Link to="/projects" className="project ofoot">
-	             <p>Projects</p>
+	             
 	             <LiaNetworkWiredSolid className="footicon" />
             </Link>
 			<Link to="/eclass" className="e-class ofoot">
-				<p>E-class</p>
+			
 				<IoVideocamSharp className="footicon" />
 			</Link>
 		</div>)
