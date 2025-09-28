@@ -1,9 +1,9 @@
 .foot{
 	bottom: 0;
 	position: fixed;
-	width: 90%;
+	width: 98%;
 	display: flex;
-	padding: 0px 2px;
+	margin: 10px 12px;
 	justify-content: space-between;
 	align-items: center;
 	height: 8%;
@@ -20,7 +20,7 @@
 }
 
 .ofoot p, .ofoot .footicon{
-	font-size: 12px;
+	font-size: 18px;
 	text-decoration: none;
 	color: var(--primary-text);
 }

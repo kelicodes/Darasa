@@ -48,11 +48,11 @@ const getChatWithUser = (userId) => {
                 className="profile-pic"
               />
               <p>{chatName}</p>
-             {/* {existingChat?.latestmsg && (
+              {existingChat?.latestmsg && (
                 <small>
                   {existingChat.latestmsg.sender.name}: {existingChat.latestmsg.content}
                 </small>
-              )}*/}
+              )}
             </div>
           );
         })}

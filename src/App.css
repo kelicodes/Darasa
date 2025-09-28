@@ -6,6 +6,11 @@
 }
 
 
+*{
+  font-family: "Roboto", sans-serif;
+}
+
+
 .mainct{
   margin-top: 100px;
 }
