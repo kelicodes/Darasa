@@ -1,7 +1,7 @@
 .foot{
 	bottom: 0;
 	position: fixed;
-	width: 100%;
+	width: 90%;
 	display: flex;
 	padding: 0px 2px;
 	justify-content: space-between;
