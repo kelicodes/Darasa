@@ -30,11 +30,13 @@
   background-color: #dcf8c6; /* light green bubble */
   align-self: flex-end;
   justify-content: flex-end;
+   color:#f1f0f0 ;
 }
 
 .message.other {
   background-color: #f1f0f0; /* light gray bubble */
   align-self: flex-start;
+  color:#dcf8c6 ;
 }
 
 .sender-name {
@@ -47,7 +49,7 @@
   display: flex;
   padding: 10px;
   border-top: 1px solid #ddd;
-  background: #fff;
+  background: var(--primary-bg);
 }
 
 .form input {
