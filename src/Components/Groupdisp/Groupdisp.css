@@ -1,0 +1,62 @@
+.groupdisp {
+  background-color: yellow;
+  width: 100%;
+  height: 60vh;
+  position: relative; /* just in case you want relative positioning for children */
+}
+
+/* Create group icon styling */
+.creategrp {
+  position: fixed;       /* fix it to the viewport */
+  bottom: 100px;          /* distance from bottom */
+  right: 80px;            /* distance from left */
+  z-index: 1000;         /* make sure it stays on top */
+  cursor: pointer;
+  background-color: #007bff; /* optional: make it a circle button */
+  color: white;
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform 0.2s;
+}
+
+.creategrp:hover {
+  transform: scale(1.1); /* small hover effect */
+}
+
+.modal-backdrop{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 60vh;
+	width: 100%;
+}
+
+.modal-backdrop button{
+	border: 2px solid var(--primary-text);
+	color: var(--primary-text);
+	border-radius: 16px;
+	font-size: 20px;
+	padding: 10px 10px;
+	margin: 5px 5px;
+}
+
+.modal input{
+	border: 2px solid var(--primary-text);
+	color: var(--primary-text);
+	padding: 10px 10px;
+	margin-bottom: 10px;
+	font-size: 24px;
+
+}
+
+
+.users-list label {
+  font-size: 1.5rem; /* makes the text bigger */
+  font-weight: bold; /* optional, makes it bold */
+  margin-left: 8px;  /* optional, adds space from checkbox */
+}
+

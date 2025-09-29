@@ -1,34 +1,117 @@
-import {useState,useEffect,useContext} from 'react'
+import { useState, useEffect, useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
+import { IoAddSharp } from "react-icons/io5";
+import "./Groupdisp.css"
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const Groupdisp = () => {
+  const { BASE_URL, token, groups, setGroups, createGrp, navigate } = useContext(ShopContext);
+
+  const [showModal, setShowModal] = useState(false);
+  const [groupName, setGroupName] = useState("");
+  const [usersList, setUsersList] = useState([]); // all users from DB
+  const [selectedUsers, setSelectedUsers] = useState([]);
+
+  console.log(groups)
+
+  // --- Fetch all users from DB ---
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const { data } = await axios.get(`${BASE_URL}/user/allusers`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (data.success) setUsersList(data.users);
+      } catch (err) {
+        console.error("Error fetching users:", err);
+        toast.error("Failed to load users");
+      }
+    };
+    fetchUsers();
+  }, [BASE_URL, token]);
+
+  // --- Handle selecting users ---
+  const toggleUser = (userId) => {
+    setSelectedUsers((prev) =>
+      prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
+    );
+  };
+
+  // --- Handle group creation ---
+  const handleCreateGroup = async () => {
+    if (!groupName || selectedUsers.length < 1) {
+      toast.error("Enter group name and select at least 1 user");
+      return;
+    }
+
+    try {
+      await createGrp({ name: groupName, users: selectedUsers });
+
+      setShowModal(false);
+      setGroupName("");
+      setSelectedUsers([]);
+    } catch (err) {
+      console.error("Error creating group:", err);
+      toast.error("Failed to create group");
+    }
+  };
+  console.log("Creating group with:", { name: groupName, users: selectedUsers });
 
 
+  return (
+    <div className="groupdisp">
+      {groups
+        .filter(Boolean) // remove undefined or null entries
+        .map((group, index) => (
+          <div key={group._id || index} className="group">
+            <p>Group: {group.chatname}</p>
+          </div>
+        ))}
 
-const Groupdisp=()=>{
+      {/* Icon to open modal */}
+      <div className="creategrp">
+        <IoAddSharp
+          size={30}
+          style={{ cursor: "pointer" }}
+          onClick={() => setShowModal(true)}
+        />
+      </div>
 
+      {/* Modal */}
+      {showModal && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h3>Create Group</h3>
 
-	const {chats}= useContext(ShopContext)
-	console.log(chats)
+            <input
+              type="text"
+              placeholder="Group Name"
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
+            />
 
-	const [groups,setGroups]=useState([])
+            <div className="users-list">
+              {usersList.map((user) => (
+                <div key={user._id}>
+                  <input
+                    type="checkbox"
+                    id={user._id}
+                    checked={selectedUsers.includes(user._id)}
+                    onChange={() => toggleUser(user._id)}
+                  />
+                  <label htmlFor={user._id}>{user.name}</label>
+                </div>
+              ))}
+            </div>
 
+            <button onClick={handleCreateGroup}>Create</button>
+            <button onClick={() => setShowModal(false)}>Cancel</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
-	useEffect(()=>{
-		if(chats.isGroupChat){
-		setGroups(...prev => prev , groups)
-	}
-	},[chats])
-
-
-	return (<div className="groupdisp">
-		{
-			groups.map((group,index)=>{
-				<div key={index} className="group">
-					<p>{group.name}</p>
-				</div>
-			})
-		}
-	</div>)
-}
-
-
-export default Groupdisp
+export default Groupdisp;

@@ -15,6 +15,7 @@ export const ShopContextProvider = (props) => {
   const [user, setUser] = useState([])
   const [chats, setChats] = useState([])
   const [users,setUsers]=useState([])
+  const [groups,setGroups]=useState([])
 
 
   const navigate=useNavigate()
@@ -31,7 +32,7 @@ export const ShopContextProvider = (props) => {
       })
       if (data.success) {
         setChats(data.chats)
-        console.log(data.chats)
+        
       }
     } catch (e) {
       console.log(e)
@@ -54,6 +55,52 @@ export const ShopContextProvider = (props) => {
   }
 
 
+  const fetchgroups=async()=>{
+    try{
+      const {data} = await axios.get(
+         `${BASE_URL}/chat/fetchgroups`, // Backend now handles "access or create"
+    
+      { headers: { Authorization: `Bearer ${token}` } }
+        )
+
+
+      if(data.success){
+        setGroups(data.groups)
+        console.log(data.groups)
+      }
+    }catch(e){
+      console.log("Error fetching groups", e)
+    }
+  }
+
+
+
+  const createGrp = async ({ name, users }) => {
+  try {
+    const { data } = await axios.post(
+      `${BASE_URL}/chat/creategrp`,
+      { name, users },
+      { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
+    );
+
+    if (data.success) {
+      toast.success(data.message);
+      setGroups(prev => [...prev, data.fullGroupChat]);
+
+      // Navigate to the group page with group info
+      navigate(`/group/${data.fullGroupChat._id}`, { state: { group: data.fullGroupChat } });
+    }
+  } catch (e) {
+    console.log("Error creating group", e);
+    toast.error("Failed to create group");
+  }
+};
+
+
+
+
+
+
 
 const accessChats = async (userId) => {
   try {
@@ -64,8 +111,7 @@ const accessChats = async (userId) => {
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
-    console.log("Chat accessed/created:", data);
-
+  
     // 2️⃣ Add the chat to state if it's not already there
     if (data && data._id) {
       setChats((prev) => {
@@ -91,7 +137,7 @@ const accessChats = async (userId) => {
       const {data}= await axios.post(BASE_URL+ "/user/logout", {}, {
       headers: { Authorization: `Bearer ${token}` }
     })
-       console.log(data)
+       
       if(data.success){
         toast.success(data.message)
         localStorage.removeItem('token')
@@ -109,12 +155,13 @@ const accessChats = async (userId) => {
   }
 
 
+
+
  
 
 useEffect(() => {
   const savedToken = localStorage.getItem("token")
   const savedUser = localStorage.getItem("user")
-  console.log(savedUser)
   if (savedToken) setToken(savedToken)
   if (savedUser) setUser(JSON.parse(savedUser))
 }, [])
@@ -124,7 +171,8 @@ useEffect(()=>{
   if(token){
     fetchmsg()
     fetchusers()
-   
+    fetchgroups()
+
   }
 },[token])
 
@@ -140,7 +188,9 @@ useEffect(()=>{
     fetchmsg,
     Logout,
     users,
-    accessChats
+    accessChats,
+    groups,
+    createGrp
   }
 
   return (
