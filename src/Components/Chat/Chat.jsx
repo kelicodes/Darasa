@@ -1,18 +1,21 @@
 import { useState, useEffect, useContext, useRef } from "react";
-import { useParams } from "react-router-dom";   
+import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import axios from "axios";
 import { ShopContext } from "../../Context/ShopContext";
 import "./Chat.css";
 
 const Chat = () => {
-  const { chatId } = useParams();   
-  const [msg, setMsg] = useState([]);
-  const { BASE_URL, token, user } = useContext(ShopContext); 
+  const { chatId } = useParams();
+  const { BASE_URL, token, user } = useContext(ShopContext);
+
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [typingUsers, setTypingUsers] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const socketRef = useRef(null);
 
-  // ✅ 1. Connect socket
+  // --- Connect to socket ---
   useEffect(() => {
     socketRef.current = io(BASE_URL, { withCredentials: true });
 
@@ -20,21 +23,40 @@ const Chat = () => {
       socketRef.current.emit("setup", user);
 
       socketRef.current.on("connected", () => {
-        console.log("socket connected");
+        console.log("Socket connected");
       });
 
-      // ✅ Listen for messages from backend
+      // --- Listen for incoming messages ---
       socketRef.current.on("new message", (newMessage) => {
-        setMsg((prev) => [...prev, newMessage]);
+        setMessages((prev) => [...prev, newMessage]);
       });
+
+      // --- Typing indicators ---
+      socketRef.current.on("typing", ({ userId }) => {
+        setTypingUsers((prev) => [...new Set([...prev, userId])]);
+      });
+
+      socketRef.current.on("stop typing", ({ userId }) => {
+        setTypingUsers((prev) => prev.filter((id) => id !== userId));
+      });
+
+      // --- Online users ---
+      socketRef.current.on("online-users", (users) => {
+        setOnlineUsers(users);
+      });
+
+      // --- Join the current chat room ---
+      if (chatId) {
+        socketRef.current.emit("JOIN_CHAT", chatId);
+      }
     }
 
     return () => {
       if (socketRef.current) socketRef.current.disconnect();
     };
-  }, [BASE_URL, user]);
+  }, [BASE_URL, user, chatId]);
 
-  // ✅ 2. Fetch old messages when chatId changes
+  // --- Fetch old messages ---
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -43,7 +65,7 @@ const Chat = () => {
           withCredentials: true,
         });
         if (data.success) {
-          setMsg(data.messages);
+          setMessages(data.messages);
         }
       } catch (err) {
         console.error("Error fetching messages:", err);
@@ -53,7 +75,7 @@ const Chat = () => {
     if (chatId) fetchMessages();
   }, [chatId, BASE_URL, token]);
 
-  // ✅ 3. Send new message
+  // --- Handle sending message ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -61,32 +83,43 @@ const Chat = () => {
     try {
       const { data } = await axios.post(
         `${BASE_URL}/msg/sendmsg`,
-        {
-          content: input,
-          chatId: chatId,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        }
+        { content: input, chatId },
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
 
       if (data.success) {
-        setMsg((prev) => [...prev, data.message]);
+        setMessages((prev) => [...prev, data.message]);
         setInput("");
-
-        // ✅ Emit message to socket so others get it
         socketRef.current.emit("new message", data.message);
+        socketRef.current.emit("stop typing", chatId);
       }
     } catch (err) {
       console.error(err);
     }
   };
 
+  // --- Handle typing ---
+  const handleTyping = () => {
+    socketRef.current.emit("typing", chatId);
+    clearTimeout(window.typingTimeout);
+    window.typingTimeout = setTimeout(() => {
+      socketRef.current.emit("stop typing", chatId);
+    }, 1000);
+  };
+
   return (
     <div className="chat-container">
+      <div className="chat-header">
+        <p>
+          Online Users:{" "}
+          {onlineUsers
+            .map((id) => (id === user?._id ? "You" : id))
+            .join(", ")}
+        </p>
+      </div>
+
       <div className="msg">
-        {msg.map((message, index) => {
+        {messages.map((message, index) => {
           const isOwnMessage = message.sender?._id === user?._id;
           return (
             <div
@@ -103,11 +136,20 @@ const Chat = () => {
           );
         })}
       </div>
+
+      {/* Typing Indicator */}
+      {typingUsers.length > 0 && (
+        <p className="typing-indicator">Someone is typing...</p>
+      )}
+
       <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+            handleTyping();
+          }}
           placeholder="Type a message..."
         />
         <button type="submit">Send</button>
