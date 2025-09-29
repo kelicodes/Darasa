@@ -128,26 +128,33 @@ const accessChats = async (userId) => {
 };
 
 
-const accessGroups=async(groupId)=>{
-  try{
-    
-     const { data } = await axios.post(
-      `${BASE_URL}/chat/accessGroups`, // Backend now handles "access or create"
+const accessGroups = async (groupId) => {
+  try {
+    const { data } = await axios.post(
+      `${BASE_URL}/chat/accessgroups`,
       { groupId },
       { headers: { Authorization: `Bearer ${token}` } }
     );
 
+    console.log(data.group)
 
-      if (data.success) {
+    if (data.success) {
       toast.success(data.message);
-      setGroups(prev => [...prev, data.groups]);
 
 
-     navigate(`/groups/${data._Id}`)
-  }catch(e)  {
+      setGroups((prev) => {
+        if (prev.find((g) => g._id === data.group._id)) return prev;
+        return [...prev, data.group];
+      });
+
+      navigate(`/group/${data.group._id}`, { state: { group: data.group } });
+    }
+  } catch (e) {
     console.log("accessGroups failed", e);
+    toast.error("Failed to access group");
   }
-}
+};
+
 
 
 
@@ -156,7 +163,7 @@ const accessGroups=async(groupId)=>{
   const Logout=async()=>{
    
     try{
-      const {data}= await axios.post(BASE_URL+ "/user/logout", {}, {
+      const {data}= await axios.post(BASE_URL + "/user/logout", {}, {
       headers: { Authorization: `Bearer ${token}` }
     })
        

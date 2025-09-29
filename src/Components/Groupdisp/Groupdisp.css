@@ -60,3 +60,8 @@
   margin-left: 8px;  /* optional, adds space from checkbox */
 }
 
+
+.group{
+  border: 3px solid red;
+}
+

@@ -14,7 +14,7 @@ const Groupdisp = () => {
   const [usersList, setUsersList] = useState([]); // all users from DB
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  console.log(groups)
+  
 
   // --- Fetch all users from DB ---
   useEffect(() => {
@@ -57,19 +57,19 @@ const Groupdisp = () => {
       toast.error("Failed to create group");
     }
   };
-  console.log("Creating group with:", { name: groupName, users: selectedUsers });
+  
 
 
   return (
     <div className="groupdisp">
-      {/*<div className="mybuttons">
+      <div className="mybuttons">
         <Link to="/"><button>Chats</button></Link>
         <Link to="/group"><button>Groups</button></Link>
-      </div>*/}
+      </div>
       {groups
         .filter(Boolean) // remove undefined or null entries
         .map((group, index) => (
-          <div key={group._Id || index} onClick={accessGroups(group._Id)} className="group">
+          <div key={group._Id || index} onClick={() => accessGroups(group._Id)} className="group">
             <p>Group: {group.chatname}</p>
           </div>
         ))}
