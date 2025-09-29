@@ -13,6 +13,7 @@
   border-bottom: 1px solid var(--primary-text);
   color: var(--primary-text);
   z-index: 1000;
+  margin-bottom: 0;
 }
 
 .nav img {

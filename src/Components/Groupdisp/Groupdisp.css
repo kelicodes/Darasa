@@ -2,6 +2,7 @@
   background-color: var(--primary-bg);
   width: 100%;
   height: 60vh;
+  margin-top: 9%;
   position: relative; /* keeps child absolute/fixed references safe */
 }
 
@@ -74,7 +75,7 @@
   color: var(--primary-text);
   padding: 10px 10px;
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 16px;
   width: 100%;
   border-radius: 8px;
 }

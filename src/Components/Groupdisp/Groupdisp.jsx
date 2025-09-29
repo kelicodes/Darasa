@@ -83,7 +83,7 @@ const Groupdisp = () => {
         .filter(Boolean) // remove undefined or null entries
         .map((group, index) => (
           <div key={group._id || index} onClick={() => accessGroups(group._id)} className="group">
-            <p>Group: {group.chatname}</p>
+            <p>{group.chatname}</p>
               <p>
         Members:{" "}
         {getUserNames(group.users).join(", ")}
