@@ -2,7 +2,7 @@
   background-color: var(--primary-bg);
   width: 100%;
   height: auto;
-  margin-top: 12%;
+  margin-top: 16%;
   position: relative; /* keeps child absolute/fixed references safe */
 }
 
