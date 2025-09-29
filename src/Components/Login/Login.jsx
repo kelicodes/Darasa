@@ -5,6 +5,7 @@ import cors from 'cors'
 import "./Login.css"
 import {useNavigate} from 'react-router-dom'
 import {assets} from "../../assets/assets"
+import {toast} from "react-toastify"
 
 
 
@@ -21,11 +22,10 @@ export const Login=(props)=>{
 
 
 	const handlesubmit = async (e) => {
+  e.preventDefault();
   try {
-    e.preventDefault();
-    const formdata = new FormData();
-
     if (logstate === "signup") {
+      const formdata = new FormData();
       formdata.append("name", name);
       formdata.append("email", email);
       formdata.append("password", password);
@@ -37,13 +37,22 @@ export const Login=(props)=>{
 
       if (response.data.success) {
         setToken(response.data.token);
+        toast.success(response.data.message);
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user)); // ✅ save user
+        localStorage.setItem("user", JSON.stringify(response.data.user));
         setUser(response.data.user);
         setName("");
         setEmail("");
         setPassword("");
+        setProfilepic(null);
         navigate("/");
+      } else {
+        toast.error(response.data.message || "Signup failed");
+        // clear inputs if signup failed
+        setName("");
+        setEmail("");
+        setPassword("");
+        setProfilepic(null);
       }
     } else if (logstate === "login") {
       const response = await axios.post(
@@ -54,6 +63,7 @@ export const Login=(props)=>{
 
       if (response.data.success) {
         setToken(response.data.token);
+        toast.success(response.data.message);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         setUser(response.data.user);
@@ -61,12 +71,24 @@ export const Login=(props)=>{
         setEmail("");
         setPassword("");
         navigate("/");
+      } else {
+        toast.error(response.data.message || "Login failed");
+        // clear inputs if login failed
+        setEmail("");
+        setPassword("");
       }
     }
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error("Error:", err);
+    toast.error("Something went wrong, please try again");
+    // clear inputs if request completely failed
+    setName("");
+    setEmail("");
+    setPassword("");
+    setProfilepic(null);
   }
 };
+
 
 
 

@@ -2,6 +2,7 @@ import {useState,useEffect,useContext} from 'react'
 import {ShopContext} from "../../Context/ShopContext"
 import { IoMenuSharp } from "react-icons/io5";
 import {assets} from "../../assets/assets"
+import {toast} from 'react-toastify'
 import "./Nav.css"
 
 

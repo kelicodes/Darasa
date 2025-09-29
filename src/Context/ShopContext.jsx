@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
+import {toast} from 'react-toastify'
 
 
 import {useNavigate} from "react-router-dom"
@@ -92,6 +93,7 @@ const accessChats = async (userId) => {
     })
        console.log(data)
       if(data.success){
+        toast.success(data.message)
         localStorage.removeItem('token')
         localStorage.removeItem('user')
         setUser(null)

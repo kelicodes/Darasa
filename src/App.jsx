@@ -11,23 +11,29 @@ import { ShopContext } from "./Context/ShopContext"
 import CreateMeetingButton from "./Pages/Class/Create"
 import "./App.css"
 
+// ✅ add imports for react-toastify
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 export const App = () => {
   const { token } = useContext(ShopContext)
   console.log(token)
 
   return (
     <>
+      <ToastContainer position="top-right" autoClose={3000} /> {/* ✅ enable toasts */}
+
       {token ? (
         <>
           <Nav />
           <div className="mainct">
-          <Routes >
-            <Route path="/" element={<Chatdisp/>} />
-            <Route path='/eclass' element={<CreateMeetingButton/>}/>
-            <Route path='/chat/:chatId' element={<Chat/>}/>
-            <Route path="/eclass/:roomid" element={<Eclass/>}/>
-          </Routes>
-        </div>
+            <Routes>
+              <Route path="/" element={<Chatdisp />} />
+              <Route path="/eclass" element={<CreateMeetingButton />} />
+              <Route path="/chat/:chatId" element={<Chat />} />
+              <Route path="/eclass/:roomid" element={<Eclass />} />
+            </Routes>
+          </div>
           <Foot />
         </>
       ) : (
