@@ -49,6 +49,12 @@
 	padding: 0 0;
 	margin: 0 0;
 }
+/*
+.user-info{
+	border-bottom: 1px solid var(--primary-text);
+	width: 100%;
+
+}*/
 
 
 .user p{

@@ -57,6 +57,19 @@ const Groupdisp = () => {
       toast.error("Failed to create group");
     }
   };
+
+
+  const getUserNames = (ids) => {
+  if (!ids || !usersList.length) return [];
+  return ids.map((id) => {
+    const user = usersList.find((u) => u._id === id);
+    return user ? user.name : id; // fallback: show id if name not found
+  });
+};
+
+
+
+  
   
 
 
@@ -71,6 +84,10 @@ const Groupdisp = () => {
         .map((group, index) => (
           <div key={group._id || index} onClick={() => accessGroups(group._id)} className="group">
             <p>Group: {group.chatname}</p>
+              <p>
+        Members:{" "}
+        {getUserNames(group.users).join(", ")}
+      </p>
           </div>
         ))}
 
