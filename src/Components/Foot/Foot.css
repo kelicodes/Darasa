@@ -10,6 +10,7 @@
   height: 8%; /* same as nav for balance */
   background-color: var(--primary-bg);
   color: var(--primary-text);
+  border-top: 2px solid var(--primary-text);
   padding: 0 2%;
 }
 

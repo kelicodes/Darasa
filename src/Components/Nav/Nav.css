@@ -10,6 +10,7 @@
   height: 8%; /* use % instead of px */
   padding: 0 4%; /* responsive padding */
   background-color: var(--primary-bg);
+  border-bottom: 1px solid var(--primary-text);
   color: var(--primary-text);
   z-index: 1000;
 }
@@ -26,7 +27,13 @@
   font-weight: bold;
 }
 
+
+.dark{
+  border: 2px solid yellow;
+}
+
 .icon {
   font-size: 7vw; /* responsive icon */
   cursor: pointer;
+  margin-right: 10%;
 }

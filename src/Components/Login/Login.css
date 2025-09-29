@@ -11,13 +11,15 @@
 }
 
 
-.login input{
-	padding: 10px 10px;
+.login input, .name input{
+
+	padding: 15px 15px;
 	margin: 10px 10px;
-	width: 60vw;
-	border-radius: 16px;
+	width: 50vw;
+	border-radius: 8px;
 	color: var(--primary-bg);
-	font-size: 24px;
+	background-color: var(--primary-text);
+	font-size: 15px;
 }
 
 
@@ -30,15 +32,26 @@
 
 .login p{
 	color: var(--primary-text);
-	font-size: 24px;
+	font-size: 16px;
 }
 
 
 .signup .theprofile {
-	width: 200px;
-	height: 200px;
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
 }
 
+
+.image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.image p{
+	margin-left: 12px;
+}
 
 
 

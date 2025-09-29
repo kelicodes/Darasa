@@ -15,9 +15,10 @@
 .user{
 	display: flex;
 	align-items: center;
-	border-bottom: 1px solid black;
-	border-top: 1px solid black;
+	border-bottom: 1px solid var(--primary-text);
+	border-top: 1px solid var(--primary-text);
 	width: 100vw;
+	padding: 2% 2%;
 	margin-bottom: 16px;
 }
 

@@ -94,15 +94,18 @@ export const Login=(props)=>{
 
 	return (
 		<form className="login" onSubmit={handlesubmit}>
-			<p>WLECOME TO DARASA</p>
+			<p>WELCOME TO DARASA</p>
 			{
 				logstate === "signup" ?
 				<div className="signup">
 					<label htmlFor="profilepic">
 				<input id="profilepic" onChange={(e)=>setProfilepic(e.target.files[0])} type="file" hidden/>
-				<img className="theprofile"  src={profilepic ? URL.createObjectURL(profilepic) : assets.upload} />
+				<div className="image">
+					<img className="theprofile"  src={profilepic ? URL.createObjectURL(profilepic) : assets.upload} />
+					<p>Profile picture</p>
+				</div>
 			</label>
-				 <input type="text" value={name} onChange={(e)=>setName(e.target.value)}
+				 <input className="name" type="text" value={name} onChange={(e)=>setName(e.target.value)}
 				  placeholder="enter name"/>
 				  </div>
 				: ""

@@ -6,11 +6,17 @@
 }
 
 
+[data-theme="dark"]{
+  --primary-bg:white;
+  --primary-text:black;
+}
+
+
 *{
   font-family: "Roboto", sans-serif;
-  /*background-color: var(--primary-bg);
+background-color: var(--primary-bg);
   color: var(--primary-text);
-}*/
+
 }
 
 

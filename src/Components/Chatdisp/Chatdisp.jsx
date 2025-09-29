@@ -25,7 +25,7 @@ const getChatWithUser = (userId) => {
 
   return (
     <div className="chatdisp">
-      <h4>Users</h4>
+    <h4>{`Welcome ${currentUser?.name || "Guest"}`}</h4>
     {safeUsers
   .filter((u) => String(u._id) !== String(currentUser._id)) // exclude self
   .map((user) => {
