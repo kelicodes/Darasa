@@ -13,7 +13,10 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [typingUsers, setTypingUsers] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [chatPartner, setChatPartner] = useState(null);
+
   const socketRef = useRef(null);
+  const msgContainerRef = useRef(null);
 
   // --- Connect to socket ---
   useEffect(() => {
@@ -22,38 +25,26 @@ const Chat = () => {
     if (user) {
       socketRef.current.emit("setup", user);
 
-      socketRef.current.on("connected", () => {
-        console.log("Socket connected");
-      });
+      socketRef.current.on("connected", () => console.log("Socket connected"));
 
-      // --- Listen for incoming messages ---
       socketRef.current.on("new message", (newMessage) => {
         setMessages((prev) => [...prev, newMessage]);
       });
 
-      // --- Typing indicators ---
       socketRef.current.on("typing", ({ userId }) => {
-        setTypingUsers((prev) => [...new Set([...prev, userId])]);
+        if (!typingUsers.includes(userId)) setTypingUsers((prev) => [...prev, userId]);
       });
 
       socketRef.current.on("stop typing", ({ userId }) => {
         setTypingUsers((prev) => prev.filter((id) => id !== userId));
       });
 
-      // --- Online users ---
-      socketRef.current.on("online-users", (users) => {
-        setOnlineUsers(users);
-      });
+      socketRef.current.on("online-users", (users) => setOnlineUsers(users));
 
-      // --- Join the current chat room ---
-      if (chatId) {
-        socketRef.current.emit("JOIN_CHAT", chatId);
-      }
+      if (chatId) socketRef.current.emit("JOIN_CHAT", chatId);
     }
 
-    return () => {
-      if (socketRef.current) socketRef.current.disconnect();
-    };
+    return () => socketRef.current.disconnect();
   }, [BASE_URL, user, chatId]);
 
   // --- Fetch old messages ---
@@ -64,18 +55,29 @@ const Chat = () => {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });
+
         if (data.success) {
           setMessages(data.messages);
+
+          // Determine chat partner
+          const partner = data.messages.find((m) => m.sender._id !== user._id)?.sender || null;
+          setChatPartner(partner);
         }
       } catch (err) {
-        console.error("Error fetching messages:", err);
+        console.error(err);
       }
     };
 
     if (chatId) fetchMessages();
-  }, [chatId, BASE_URL, token]);
+  }, [chatId, BASE_URL, token, user]);
 
-  // --- Handle sending message ---
+  // --- Auto-scroll to bottom ---
+  useEffect(() => {
+    const container = msgContainerRef.current;
+    if (container) container.scrollTop = container.scrollHeight;
+  }, [messages]);
+
+  // --- Send message ---
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -98,7 +100,7 @@ const Chat = () => {
     }
   };
 
-  // --- Handle typing ---
+  // --- Typing ---
   const handleTyping = () => {
     socketRef.current.emit("typing", chatId);
     clearTimeout(window.typingTimeout);
@@ -107,40 +109,36 @@ const Chat = () => {
     }, 1000);
   };
 
+  const isPartnerOnline = chatPartner && onlineUsers.includes(chatPartner._id);
+
   return (
     <div className="chat-container">
       <div className="chat-header">
-        <p>
-          Online Users:{" "}
-          {onlineUsers
-            .map((id) => (id === user?._id ? "You" : id))
-            .join(", ")}
-        </p>
+        {chatPartner ? (
+          <p>
+            {chatPartner.name}{" "}
+            <span className={isPartnerOnline ? "online" : "offline"}>
+              {isPartnerOnline ? "Online" : "Offline"}
+            </span>
+          </p>
+        ) : (
+          <p>Loading chat...</p>
+        )}
       </div>
 
-      <div className="msg">
+      <div className="msg" ref={msgContainerRef}>
         {messages.map((message, index) => {
           const isOwnMessage = message.sender?._id === user?._id;
           return (
-            <div
-              key={index}
-              className={`message ${isOwnMessage ? "own" : "other"}`}
-            >
-              {!isOwnMessage && (
-                <span className="sender-name">{message.sender?.name}</span>
-              )}
-              <span className="message-text">
-                {message.content || message.text}
-              </span>
+            <div key={index} className={`message ${isOwnMessage ? "own" : "other"}`}>
+              {!isOwnMessage && <span className="sender-name">{message.sender?.name}</span>}
+              <span className="message-text">{message.content || message.text}</span>
             </div>
           );
         })}
       </div>
 
-      {/* Typing Indicator */}
-      {typingUsers.length > 0 && (
-        <p className="typing-indicator">Someone is typing...</p>
-      )}
+      {typingUsers.length > 0 && <p className="typing-indicator">Someone is typing...</p>}
 
       <form className="form" onSubmit={handleSubmit}>
         <input
