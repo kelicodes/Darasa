@@ -9,6 +9,7 @@ import Chat from "./Components/Chat/Chat"
 import Chatdisp from "./Components/Chatdisp/Chatdisp" 
 import { ShopContext } from "./Context/ShopContext"
 import CreateMeetingButton from "./Pages/Class/Create"
+import Groupdisp from "./Components/Groupdisp/Groupdisp"
 import "./App.css"
 
 // ✅ add imports for react-toastify
@@ -30,6 +31,7 @@ export const App = () => {
             <Routes>
               <Route path="/" element={<Chatdisp />} />
               <Route path="/eclass" element={<CreateMeetingButton />} />
+              <Route path="/group" element={<Groupdisp/>}/>
               <Route path="/chat/:chatId" element={<Chat />} />
               <Route path="/eclass/:roomid" element={<Eclass />} />
             </Routes>
