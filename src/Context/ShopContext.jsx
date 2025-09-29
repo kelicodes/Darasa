@@ -128,6 +128,28 @@ const accessChats = async (userId) => {
 };
 
 
+const accessGroups=async(groupId)=>{
+  try{
+    
+     const { data } = await axios.post(
+      `${BASE_URL}/chat/accessGroups`, // Backend now handles "access or create"
+      { groupId },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+
+      if (data.success) {
+      toast.success(data.message);
+      setGroups(prev => [...prev, data.groups]);
+
+
+     navigate(`/groups/${data._Id}`)
+  }catch(e)  {
+    console.log("accessGroups failed", e);
+  }
+}
+
+
 
 
 
@@ -190,7 +212,8 @@ useEffect(()=>{
     users,
     accessChats,
     groups,
-    createGrp
+    createGrp,
+    accessGroups
   }
 
   return (

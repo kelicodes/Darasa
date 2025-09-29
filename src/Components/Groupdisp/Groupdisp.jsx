@@ -4,9 +4,10 @@ import { IoAddSharp } from "react-icons/io5";
 import "./Groupdisp.css"
 import axios from "axios";
 import { toast } from "react-toastify";
+import {Link} from "react-router-dom"
 
 const Groupdisp = () => {
-  const { BASE_URL, token, groups, setGroups, createGrp, navigate } = useContext(ShopContext);
+  const { BASE_URL, token, groups, setGroups, createGrp, navigate,accessGroups } = useContext(ShopContext);
 
   const [showModal, setShowModal] = useState(false);
   const [groupName, setGroupName] = useState("");
@@ -61,10 +62,14 @@ const Groupdisp = () => {
 
   return (
     <div className="groupdisp">
+      {/*<div className="mybuttons">
+        <Link to="/"><button>Chats</button></Link>
+        <Link to="/group"><button>Groups</button></Link>
+      </div>*/}
       {groups
         .filter(Boolean) // remove undefined or null entries
         .map((group, index) => (
-          <div key={group._id || index} className="group">
+          <div key={group._Id || index} onClick={accessGroups(group._Id)} className="group">
             <p>Group: {group.chatname}</p>
           </div>
         ))}

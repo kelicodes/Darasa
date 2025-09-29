@@ -1,5 +1,6 @@
 import { useContext } from "react"; 
 import "./Chatdisp.css";
+import {Link} from 'react-router-dom'
 
 import { ShopContext } from "../../Context/ShopContext";
 
@@ -24,6 +25,10 @@ const getChatWithUser = (userId) => {
 
   return (
     <div className="chatdisp">
+      <div className="mybuttons">
+        <Link to="/"><button>Chats</button></Link>
+        <Link to="/group"><button>Groups</button></Link>
+      </div>
     <h4>{`Welcome ${currentUser?.name || "Guest"}`}</h4>
     {safeUsers
   .filter((u) => String(u._id) !== String(currentUser._id)) // exclude self
