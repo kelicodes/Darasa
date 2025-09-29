@@ -21,6 +21,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  border: 2px solid var(--primary-text);
   transition: transform 0.2s;
 }
 
@@ -43,10 +44,7 @@
 }
 
 
-.group p{
-  color: var(--primary-text);
-  background-color: var(--primary-bg);
-}
+
 /* Modal box styling */
 .modal {
   background:var(--primary-bg);
@@ -99,9 +97,12 @@
 /* Group display box */
 .group {
   border-bottom: 3px solid var(--primary-text);
+  box-shadow: 2px 2px 2px 2px solid var(--primary-text);
   padding: 8px;
   margin: 5px 0;
   border-radius: 8px;
   cursor: pointer;
-  background: #fff5f5;
+   color: var(--primary-text);
+  background-color: var(--primary-bg);
+  gap: 0px;
 }
