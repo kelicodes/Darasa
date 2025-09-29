@@ -69,7 +69,7 @@ const Groupdisp = () => {
       {groups
         .filter(Boolean) // remove undefined or null entries
         .map((group, index) => (
-          <div key={group._Id || index} onClick={() => accessGroups(group._Id)} className="group">
+          <div key={group._id || index} onClick={() => accessGroups(group._id)} className="group">
             <p>Group: {group.chatname}</p>
           </div>
         ))}

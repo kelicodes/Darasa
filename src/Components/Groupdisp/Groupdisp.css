@@ -2,17 +2,17 @@
   background-color: yellow;
   width: 100%;
   height: 60vh;
-  position: relative; /* just in case you want relative positioning for children */
+  position: relative; /* keeps child absolute/fixed references safe */
 }
 
 /* Create group icon styling */
 .creategrp {
   position: fixed;       /* fix it to the viewport */
-  bottom: 100px;          /* distance from bottom */
-  right: 80px;            /* distance from left */
-  z-index: 1000;         /* make sure it stays on top */
+  bottom: 100px;         /* distance from bottom */
+  right: 80px;           /* distance from right */
+  z-index: 1000;         /* make sure it stays on top of groups */
   cursor: pointer;
-  background-color: #007bff; /* optional: make it a circle button */
+  background-color: #007bff; /* blue circle button */
   color: white;
   padding: 12px;
   border-radius: 50%;
@@ -27,41 +27,72 @@
   transform: scale(1.1); /* small hover effect */
 }
 
-.modal-backdrop{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 60vh;
-	width: 100%;
+/* Backdrop covers full screen */
+.modal-backdrop {
+  position: fixed;  /* lock to viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;     /* full width */
+  height: 100vh;    /* full height */
+  background: rgba(0, 0, 0, 0.5); /* dark overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;    /* higher than groups & icon */
 }
 
-.modal-backdrop button{
-	border: 2px solid var(--primary-text);
-	color: var(--primary-text);
-	border-radius: 16px;
-	font-size: 20px;
-	padding: 10px 10px;
-	margin: 5px 5px;
+/* Modal box styling */
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 3000; /* ensure modal is above backdrop */
 }
 
-.modal input{
-	border: 2px solid var(--primary-text);
-	color: var(--primary-text);
-	padding: 10px 10px;
-	margin-bottom: 10px;
-	font-size: 24px;
-
+/* Buttons inside modal */
+.modal-backdrop button {
+  border: 2px solid var(--primary-text);
+  color: var(--primary-text);
+  border-radius: 16px;
+  font-size: 20px;
+  padding: 10px 10px;
+  margin: 5px 5px;
+  background: transparent;
+  cursor: pointer;
 }
 
+.modal input {
+  border: 2px solid var(--primary-text);
+  color: var(--primary-text);
+  padding: 10px 10px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  width: 100%;
+  border-radius: 8px;
+}
 
+/* User list styles inside modal */
 .users-list label {
-  font-size: 1.5rem; /* makes the text bigger */
-  font-weight: bold; /* optional, makes it bold */
-  margin-left: 8px;  /* optional, adds space from checkbox */
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 8px;  /* space from checkbox */
 }
 
+.users-list {
+  max-height: 200px; /* scroll if many users */
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
 
-.group{
+/* Group display box */
+.group {
   border: 3px solid red;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fff5f5;
 }
-

@@ -128,10 +128,10 @@ const accessChats = async (userId) => {
 };
 
 
-const accessGroups = async (groupId) => {
+const accessGroups=async(groupId)=>{
   try {
     const { data } = await axios.post(
-      `${BASE_URL}/chat/accessgroups`,
+      `https://backdarasa-1.onrender.com/chat/accessgroups`,
       { groupId },
       { headers: { Authorization: `Bearer ${token}` } }
     );
