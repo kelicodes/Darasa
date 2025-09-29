@@ -73,7 +73,17 @@
   padding: 4px 10px;
   font-style: italic;
   font-size: 14px;
-  color: #555;
+  color: green;
+}
+
+.top .online{
+  color: green;
+}
+
+.top{
+  margin: 0 0;
+  padding: 0 0;
+  gap: 0;
 }
 
 /* Form at the bottom */

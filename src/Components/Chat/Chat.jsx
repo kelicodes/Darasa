@@ -115,12 +115,15 @@ const Chat = () => {
     <div className="chat-container">
       <div className="chat-header">
         {chatPartner ? (
+          <div className="top">
           <p>
             {chatPartner.name}{" "}
             <span className={isPartnerOnline ? "online" : "offline"}>
               {isPartnerOnline ? "Online" : "Offline"}
             </span>
           </p>
+           {typingUsers.length > 0 && <p className="typing-indicator">Typing...</p>}
+        </div>
         ) : (
           <p>Loading chat...</p>
         )}
