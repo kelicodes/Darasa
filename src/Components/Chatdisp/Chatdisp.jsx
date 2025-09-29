@@ -5,6 +5,7 @@ import { ShopContext } from "../../Context/ShopContext";
 
 const Chatdisp = () => {
   const { chats, users,accessChats } = useContext(ShopContext);
+  console.log(users)
   const safeChats = chats || [];
   const safeUsers = users || [];
   const currentUser = JSON.parse(localStorage.getItem("user"));

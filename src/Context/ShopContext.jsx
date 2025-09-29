@@ -112,6 +112,7 @@ const accessChats = async (userId) => {
 useEffect(() => {
   const savedToken = localStorage.getItem("token")
   const savedUser = localStorage.getItem("user")
+  console.log(savedUser)
   if (savedToken) setToken(savedToken)
   if (savedUser) setUser(JSON.parse(savedUser))
 }, [])
