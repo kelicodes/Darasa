@@ -141,8 +141,6 @@ const Chat = () => {
         })}
       </div>
 
-      {typingUsers.length > 0 && <p className="typing-indicator">Someone is typing...</p>}
-
       <form className="form" onSubmit={handleSubmit}>
         <input
           type="text"
