@@ -1,5 +1,5 @@
 .groupdisp {
-  background-color: yellow;
+  background-color: var(--primary-bg);
   width: 100%;
   height: 60vh;
   position: relative; /* keeps child absolute/fixed references safe */
@@ -12,7 +12,7 @@
   right: 80px;           /* distance from right */
   z-index: 1000;         /* make sure it stays on top of groups */
   cursor: pointer;
-  background-color: #007bff; /* blue circle button */
+  background-color: var(--primary-bg); /* blue circle button */
   color: white;
   padding: 12px;
   border-radius: 50%;
@@ -34,16 +34,21 @@
   left: 0;
   width: 100vw;     /* full width */
   height: 100vh;    /* full height */
-  background: rgba(0, 0, 0, 0.5); /* dark overlay */
+  background: var(--primary-bg); /* dark overlay */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;    /* higher than groups & icon */
 }
 
+
+.group p{
+  color: var(--primary-text);
+  background-color: var(--primary-bg);
+}
 /* Modal box styling */
 .modal {
-  background: white;
+  background:var(--primary-bg);
   padding: 20px;
   border-radius: 12px;
   max-width: 400px;
@@ -85,11 +90,14 @@
   max-height: 200px; /* scroll if many users */
   overflow-y: auto;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Group display box */
 .group {
-  border: 3px solid red;
+  border-bottom: 3px solid var(--primary-text);
   padding: 8px;
   margin: 5px 0;
   border-radius: 8px;
