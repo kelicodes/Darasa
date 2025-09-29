@@ -76,11 +76,12 @@ const Group = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+    console.log(groupChat._id)
 
     try {
       const { data } = await axios.post(
         `${BASE_URL}/msg/sendmsg`,
-        { content: input, chatId },
+        { content: input, chatId: groupChat._id },
         { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
 
@@ -89,6 +90,8 @@ const Group = () => {
         setInput("");
         socketRef.current.emit("new message", data.message);
         socketRef.current.emit("stop typing", chatId);
+      }else{
+        setInput("we are fucked")
       }
     } catch (err) {
       console.error(err);
