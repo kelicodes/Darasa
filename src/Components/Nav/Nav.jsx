@@ -20,13 +20,6 @@ const Nav=(props)=>{
 	},[theme])
 
 
-	console.log(theme)
-
-
-	
-	
-
-
 	return (<>
 		<div className="nav">
 			<img

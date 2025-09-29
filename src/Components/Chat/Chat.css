@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 70vh;
   border: 1px solid #ddd;
-  background-color: white;
+  background-color: var(--primary-bg);
 }
 
 .msg {
@@ -27,23 +27,35 @@
 }
 
 .message.own {
-  background-color: #dcf8c6; /* light green bubble */
+   /* light green bubble */
   align-self: flex-end;
   justify-content: flex-end;
-   color:#f1f0f0 ;
+   border: 1px solid var(--primary-text);
 }
 
 .message.other {
-  background-color: #f1f0f0; /* light gray bubble */
+   /* light gray bubble */
   align-self: flex-start;
-  color:#dcf8c6 ;
+  border: 1px solid var(--primary-text);
 }
 
 .sender-name {
   font-weight: bold;
   margin-right: 4px;
-  color: #333;
+  color: var(--primary-text);
 }
+
+
+.message.own .message-text {
+  color: var(--primary-text); /* dark text for your own messages */
+  background: transparent;
+}
+
+.message.other .message-text {
+  color: var(--primary-text); /* slightly darker gray for other messages */
+  background: transparent;
+}
+
 
 .form {
   display: flex;
