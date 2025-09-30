@@ -14,7 +14,7 @@
   z-index: 1000;         /* make sure it stays on top of groups */
   cursor: pointer;
   background-color: var(--primary-bg); /* blue circle button */
-  color: white;
+  color: var(--primary-text);
   padding: 12px;
   border-radius: 50%;
   display: flex;
