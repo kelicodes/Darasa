@@ -20,7 +20,7 @@
   justify-content: center;   /* keep buttons in the middle */
   align-items: center;
   gap: 12px;                 /* spacing between buttons */
-  margin: 12px 0;            /* space above/below */
+  margin: 10px 0;            /* space above/below */
   width: auto;               /* don’t stretch full screen */
 }
 
