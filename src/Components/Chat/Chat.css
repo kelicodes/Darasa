@@ -47,16 +47,31 @@
 .message.own {
   align-self: flex-end;
   justify-content: flex-end;
-  border: 1px solid #4caf50;
-  background-color: #e8f5e9;
+  border: 1px solid var(--msg-own-border);
+  background-color: var(--msg-own-bg);
+  color: var(--msg-own-text);
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.message.own span {
+  color: var(--msg-own-text);
+  background: var(--msg-own-bg);
 }
 
 /* Other messages */
 .message.other {
   align-self: flex-start;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  border: 1px solid var(--msg-other-border);
+  background-color: var(--msg-other-bg);
+  color: var(--msg-other-text);
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
 }
+
+.message.other span {
+  color: var(--msg-other-text);
+  background: transparent;
+}
+
 
 /* Sender name */
 .sender-name {

@@ -17,6 +17,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--secondary-bg);
   margin-bottom: 30px;
   animation: fadeIn 1.5s ease-in-out;
 }

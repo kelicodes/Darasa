@@ -26,7 +26,7 @@ export const App = () => {
       setLoading(true)  // start spinner
       const timer = setTimeout(() => {
         setLoading(false) // stop spinner after 3s
-      }, 3000)
+      }, 7000)
 
       return () => clearTimeout(timer) // cleanup
     }
