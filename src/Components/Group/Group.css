@@ -1,0 +1,14 @@
+.members-status span {
+  margin-left: 8px; /* small spacing between names */
+  font-weight: 500;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.online {
+  color: #16a34a; /* green-600 */
+}
+
+.offline {
+  color: #9ca3af; /* gray-400 */
+}

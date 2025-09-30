@@ -112,16 +112,17 @@ const Group = () => {
     <div className="chat-container">
       <div className="chat-header">
         {groupChat ? (
-          <p>
-            {groupChat.chatName} (Group){" "}
-            <span className="members-status">
-              {groupChat.users.map(u => (
-                <span key={u._id} className={isUserOnline(u._id) ? "online" : "offline"}>
-                  {u.name} {isUserOnline(u._id) ? "🟢" : "⚪"}
-                </span>
-              ))}
-            </span>
-          </p>
+        <p>
+  {groupChat.chatName} (Members){" "}
+  <span className="members-status">
+    {groupChat.users.map((u) => (
+      <span key={u._id} className={isUserOnline(u._id) ? "online" : "offline"}>
+        {u.name}
+      </span>
+    ))}
+  </span>
+</p>
+
         ) : (
           <p>Loading group...</p>
         )}
