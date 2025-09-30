@@ -1,24 +1,73 @@
-.spinner{
-	height: 100vh;
-	widows: 100vw;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	animation: spin linear infinite 3s;
+.spinner {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  /* animated gradient background */
+  background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
 }
 
-
-.innerspinner{
-	border-bottom: 2px solid black;
-	border-top: 2px solid white;
-	width: 40px;
-	height: 40px;
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
+.details h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-text);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-@keyframes animation{
-	spin{
-		transform: rotate(360deg);
-	}
+.details p {
+  font-size: 1.2rem;
+  color: var(--primary-text);
+  opacity: 0.85;
+}
+
+.innerspinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid transparent;
+  border-top: 6px solid var(--primary-text);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-shadow: 0 0 12px var(--primary-text); /* glowing spinner */
+}
+
+.loading-text {
+  margin-top: 15px;
+  color: var(--primary-text);
+  font-size: 1rem;
+  opacity: 0.8;
+  animation: fadeIn 2s ease-in-out infinite alternate;
+}
+
+/* animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
