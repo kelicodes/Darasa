@@ -2,11 +2,12 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
+  height: 70vh;
+  width: 100%;
+  flex: 1;
   border: 1px solid #ddd;
   background-color: var(--primary-bg);
   color: var(--primary-text);
-  height: auto;
   font-family: Arial, sans-serif;
   margin-top: 18%;
 }
