@@ -9,7 +9,7 @@
   background-color: var(--primary-bg);
   color: var(--primary-text);
   font-family: Arial, sans-serif;
-  margin-top: 18%;
+  margin: 0; /* remove extra gaps */
 }
 
 /* Chat header */
@@ -28,63 +28,43 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  scroll-behavior: smooth; /* smooth scroll to bottom */
+  gap: 8px;
+  scroll-behavior: smooth;
 }
 
-/* Each message */
+/* Base message bubble */
 .message {
-  display: flex;
-  align-items: center;
-  background: transparent;
-  gap: 6px;
-  margin: 5px 0;
-  max-width: 70%;
-/* Own messages */
-.message.own {
-  align-self: flex-end;
-  justify-content: flex-end;
-  border: 1px solid var(--msg-own-border);
-  background-color: var(--msg-own-bg);
-  color: var(--msg-own-text);
-  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
-}
-
-.message.own span {
-  color: var(--msg-own-text);
-  background: var(--msg-own-bg);
-}
-
-/* Other messages */
-.message.other {
-  align-self: flex-start;
-  border: 1px solid var(--msg-other-border);
-  background-color: var(--msg-other-bg);
-  color: var(--msg-other-text);
-  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
-}
-
-.message.other span {
-  color: var(--msg-other-text);
-  background: transparent;
-}
   padding: 8px 12px;
   border-radius: 12px;
   font-size: 16px;
   word-wrap: break-word;
+  max-width: 70%;
+  display: inline-block;
 }
 
+/* Own messages (right side) */
+.message.own {
+  align-self: flex-end;
+  text-align: right;
+  border: 1px solid var(--msg-own-border);
+  background-color: var(--msg-own-bg);
+  color: var(--msg-own-text);
+}
 
+/* Other messages (left side) */
+.message.other {
+  align-self: flex-start;
+  text-align: left;
+  border: 1px solid var(--msg-other-border);
+  background-color: var(--msg-other-bg);
+  color: var(--msg-other-text);
+}
 
-/* Sender name */
+/* Sender name for "other" */
 .sender-name {
   font-weight: bold;
-  margin-right: 4px;
-  color: var(--primary-text);
-}
-
-/* Message text */
-.message .message-text {
+  margin-bottom: 2px;
+  display: block;
   color: var(--primary-text);
 }
 
@@ -96,17 +76,10 @@
   color: green;
 }
 
-.top .online{
+.top .online {
   color: green;
 }
 
-.top{
-  margin: 0 0;
-  padding: 0 0;
-  gap: 0;
-}
-
-/* Form at the bottom */
 .form {
   display: flex;
   padding: 10px;
@@ -114,7 +87,6 @@
   background: var(--primary-bg);
 }
 
-/* Input box */
 .form input {
   flex: 1;
   padding: 8px;
@@ -124,7 +96,6 @@
   font-size: 16px;
 }
 
-/* Send button */
 .form button {
   padding: 8px 16px;
   border-radius: 6px;
