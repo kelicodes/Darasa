@@ -19,18 +19,18 @@ import "react-toastify/dist/ReactToastify.css"
 
 export const App = () => {
   const { token } = useContext(ShopContext)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(!!token)
 
-  useEffect(() => {
-    if (token) {
-      setLoading(true)  // start spinner
-      const timer = setTimeout(() => {
-        setLoading(false) // stop spinner after 3s
-      }, 7000)
+ useEffect(() => {
+  if (token) {
+    const timer = setTimeout(() => {
+      setLoading(false) // stop spinner after 3s (or shorter)
+    }, 3000)
 
-      return () => clearTimeout(timer) // cleanup
-    }
-  }, [token]) // runs when token changes
+    return () => clearTimeout(timer)
+  }
+}, [token])
+
 
   return (
     <>
