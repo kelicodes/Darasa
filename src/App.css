@@ -35,8 +35,8 @@ body, .nav {
 
 *{
   font-family: "Roboto", sans-serif;
-
-  scroll-behavior: smooth;
+  margin-left: 0px;
+    scroll-behavior: smooth;
 
 }
 
