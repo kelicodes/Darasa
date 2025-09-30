@@ -9,8 +9,11 @@
   width: 100%;
   height: 8%; /* use % instead of px */
   padding: 0 4%; /* responsive padding */
-  background-color: var(--secondary-bg);
+  /*background-color: var(--secondary-bg);*/
   border-bottom: 1px solid var(--primary-text);
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+
   color: var(--primary-text);
   z-index: 1000;
   margin-bottom: 0;
@@ -29,9 +32,7 @@
 }
 
 
-.dark{
-  border: 2px solid yellow;
-}
+
 
 .icon {
   font-size: 7vw; /* responsive icon */

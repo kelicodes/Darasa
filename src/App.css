@@ -27,11 +27,15 @@
 }
 
 
+body, .nav {
+  transition: background-color 0.40s ease, color 0.40s ease;
+}
+
+
 
 *{
   font-family: "Roboto", sans-serif;
-background-color: var(--primary-bg);
-  color: var(--primary-text);
+
   scroll-behavior: smooth;
 
 }
